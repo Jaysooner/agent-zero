@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  agent-zero:
+    build:
+      context: .
+      dockerfile: docker/run/Dockerfile
+    volumes:
+      - ./:/workspace
+    environment:
+      # Optional: fix ownership at runtime if needed and running as root
+      - CHOWN_WORKSPACE=0
+      - TARGET_UID=1000
+      - TARGET_GID=1000
+      # Override run dir if you ever want to (default: /workspace)
+      # - A0_WORKDIR=/workspace/projects/agent-zero
+      # Optional Agent Zero dirs (defaults are computed by entrypoint)
+      # - A0_HOME=/workspace/.a0
+      # - A0_DATA_DIR=/workspace
+      # - A0_LOG_DIR=/workspace/logs
+    ports:
+      - "50080:80"
